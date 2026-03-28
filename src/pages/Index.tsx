@@ -220,9 +220,9 @@ export default function Index() {
         <button
           onClick={() => scrollTo("hero")}
           className="font-oswald text-xl tracking-[0.3em] text-white glitch-text"
-          data-text="АРТИСТ"
+          data-text="МРАКОБЕСИЕ 2.0"
         >
-          АРТИСТ
+          МРАКОБЕСИЕ 2.0
         </button>
 
         <div className="hidden md:flex items-center gap-8">
@@ -294,9 +294,9 @@ export default function Index() {
           <h1
             className="font-oswald leading-none tracking-tight mb-0 reveal-up reveal-delay-1 glitch-text chrome-text"
             style={{ fontSize: "clamp(5rem, 18vw, 18rem)" }}
-            data-text="АРТИСТ"
+            data-text="МРАКОБЕСИЕ 2.0"
           >
-            АРТИСТ
+            МРАКОБЕСИЕ 2.0
           </h1>
           <div className="font-cormorant italic text-2xl text-white/30 tracking-widest mb-12 reveal-up reveal-delay-2">
             нео-хром / ритуал / распад
@@ -578,7 +578,7 @@ export default function Index() {
       {/* FOOTER */}
       <footer className="border-t border-white/5 py-12 px-8 md:px-24">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="font-oswald text-2xl tracking-[0.3em] chrome-text">АРТИСТ</div>
+          <div className="font-oswald text-2xl tracking-[0.3em] chrome-text">МРАКОБЕСИЕ 2.0</div>
           <div className="font-mono text-xs text-white/20 tracking-wider">
             © 2026 — ВСЕ ПРАВА ЗАЩИЩЕНЫ
           </div>
