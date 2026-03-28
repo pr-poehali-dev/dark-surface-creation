@@ -4,89 +4,42 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 92%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 92%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 92%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 92%;
+    --primary-foreground: 0 0% 4%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 92%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 270 80% 60%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 270 80% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Custom */
+    --obsidian: #0a0a0b;
+    --chrome: #c0c0c8;
+    --acid: #9b5cf6;
+    --acid-glow: rgba(155, 92, 246, 0.4);
+    --grain-opacity: 0.04;
   }
 }
 
@@ -95,7 +48,414 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
+    background-color: var(--obsidian);
+    font-family: "IBM Plex Mono", monospace;
+    cursor: none;
+    overflow-x: hidden;
   }
+
+  ::selection {
+    background: var(--acid);
+    color: white;
+  }
+
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--acid);
+  }
+}
+
+/* Grain overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  z-index: 9999;
+  animation: grain 0.5s steps(1) infinite;
+}
+
+@keyframes grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-2%, -3%);
+  }
+  20% {
+    transform: translate(3%, 2%);
+  }
+  30% {
+    transform: translate(-1%, 4%);
+  }
+  40% {
+    transform: translate(4%, -1%);
+  }
+  50% {
+    transform: translate(-3%, 1%);
+  }
+  60% {
+    transform: translate(2%, -4%);
+  }
+  70% {
+    transform: translate(-4%, 3%);
+  }
+  80% {
+    transform: translate(1%, -2%);
+  }
+  90% {
+    transform: translate(3%, 4%);
+  }
+}
+
+/* Custom cursor */
+.custom-cursor {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--acid);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.2s,
+    height 0.2s,
+    opacity 0.2s;
+  mix-blend-mode: screen;
+}
+
+.cursor-trail {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--acid-glow);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition:
+    left 0.15s ease-out,
+    top 0.15s ease-out,
+    width 0.3s,
+    height 0.3s,
+    opacity 0.3s;
+}
+
+/* Glitch text effect */
+@keyframes glitch1 {
+  0%,
+  100% {
+    clip-path: inset(0 0 95% 0);
+    transform: translate(-4px, 0);
+  }
+  20% {
+    clip-path: inset(30% 0 50% 0);
+    transform: translate(4px, 0);
+  }
+  40% {
+    clip-path: inset(70% 0 10% 0);
+    transform: translate(-2px, 0);
+  }
+  60% {
+    clip-path: inset(10% 0 80% 0);
+    transform: translate(2px, 0);
+  }
+  80% {
+    clip-path: inset(50% 0 30% 0);
+    transform: translate(-4px, 0);
+  }
+}
+
+@keyframes glitch2 {
+  0%,
+  100% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translate(4px, 0);
+  }
+  20% {
+    clip-path: inset(10% 0 70% 0);
+    transform: translate(-4px, 0);
+  }
+  40% {
+    clip-path: inset(50% 0 20% 0);
+    transform: translate(2px, 0);
+  }
+  60% {
+    clip-path: inset(5% 0 85% 0);
+    transform: translate(-2px, 0);
+  }
+  80% {
+    clip-path: inset(60% 0 15% 0);
+    transform: translate(4px, 0);
+  }
+}
+
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  color: var(--acid);
+  animation: glitch1 4s infinite;
+  opacity: 0;
+}
+
+.glitch-text::after {
+  color: #00ffff;
+  animation: glitch2 4s infinite;
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.glitch-text:hover::before,
+.glitch-text:hover::after {
+  opacity: 0.7;
+}
+
+/* Reveal animation */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes reveal-from-dark {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+    filter: brightness(0) blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1) blur(0);
+  }
+}
+
+@keyframes pulse-acid {
+  0%,
+  100% {
+    box-shadow: 0 0 10px var(--acid-glow);
+  }
+  50% {
+    box-shadow:
+      0 0 30px var(--acid-glow),
+      0 0 60px var(--acid-glow);
+  }
+}
+
+@keyframes smoke-drift {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-30px) scaleX(1.2);
+    opacity: 0.1;
+  }
+  100% {
+    transform: translateY(-60px) scaleX(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes waveform-beat {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.reveal-up {
+  animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.reveal-delay-1 {
+  animation-delay: 0.1s;
+}
+.reveal-delay-2 {
+  animation-delay: 0.2s;
+}
+.reveal-delay-3 {
+  animation-delay: 0.3s;
+}
+.reveal-delay-4 {
+  animation-delay: 0.5s;
+}
+.reveal-delay-5 {
+  animation-delay: 0.7s;
+}
+
+.reveal-dark {
+  animation: reveal-from-dark 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.pulse-acid {
+  animation: pulse-acid 2s ease-in-out infinite;
+}
+
+/* Waveform bars */
+.wave-bar {
+  animation: waveform-beat var(--duration, 0.8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Nav link hover */
+.nav-link {
+  position: relative;
+  letter-spacing: 0.15em;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--acid);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px var(--acid);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Section title chrome effect */
+.chrome-text {
+  background: linear-gradient(
+    135deg,
+    #888 0%,
+    #fff 30%,
+    #aaa 50%,
+    #fff 70%,
+    #666 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Ghost scroll trail */
+.ghosting-text {
+  position: relative;
+}
+
+/* Hover distort image */
+.img-distort {
+  transition: filter 0.3s ease;
+}
+
+.img-distort:hover {
+  filter: saturate(0) contrast(1.2) brightness(1.1);
+  animation: img-glitch 0.3s steps(3) forwards;
+}
+
+@keyframes img-glitch {
+  0% {
+    transform: translate(0);
+  }
+  25% {
+    transform: translate(-3px, 1px);
+    filter: hue-rotate(90deg) saturate(3);
+  }
+  50% {
+    transform: translate(3px, -1px);
+    filter: hue-rotate(180deg);
+  }
+  75% {
+    transform: translate(-1px, 2px);
+    filter: invert(0.2);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* Terminal blink */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Countdown timer */
+@keyframes countdown-pulse {
+  0%,
+  100% {
+    color: var(--chrome);
+  }
+  50% {
+    color: var(--acid);
+    text-shadow: 0 0 20px var(--acid);
+  }
+}
+
+.countdown-digit {
+  animation: countdown-pulse 2s ease-in-out infinite;
+}
+
+/* Smoke particles */
+@keyframes float-particle {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-120px) translateX(20px) scale(2);
+    opacity: 0;
+  }
+}
+
+.smoke-particle {
+  animation: float-particle 3s ease-out infinite;
 }
